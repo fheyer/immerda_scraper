@@ -84,7 +84,7 @@ def _merge_alias(df, labels):
     for label in df.columns:
         aggregations[label] = "sum"
 
-    return df.groupby('name').agg(aggregations).reset_index(drop=False)
+    return df.groupby('name').agg(aggregations).reset_index(drop=True)
 
 def _load_alias_mapper_registered_to_schichtplan():
     with open("config/alias_mapper.json", "r") as f:
