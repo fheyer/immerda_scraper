@@ -68,7 +68,7 @@ def _to_df(names_list, labels, show_diff=True):
     df = pd.DataFrame(data, columns=["label", "alias"])
     df= pd.crosstab(index=df["alias"], columns=df["label"])
     df = _merge_alias(df, labels)
-    if show_diff:
+    if show_diff and {"TRY_HARD", "FLEXI", "NORMAL"}.issubset(df.columns):
         df[f"dTRY_HARD"] = 1 - df["TRY_HARD"]
         df[f"dFLEXI"] = 1 - df["FLEXI"]
         df[f"dNORMAL"] = 2 - df["NORMAL"]
@@ -81,7 +81,7 @@ def _merge_alias(df, labels):
     df['name'] = df['alias'].map(alias_mapping).fillna(df['alias'])
 
     aggregations = {'alias': ' / '.join}
-    for label in labels:
+    for label in df.columns:
         aggregations[label] = "sum"
 
     return df.groupby('name').agg(aggregations).reset_index(drop=False)
