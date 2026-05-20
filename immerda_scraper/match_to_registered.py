@@ -35,8 +35,8 @@ def main() -> pd.DataFrame:
             names_to_remove.add(name)
     not_registered -= names_to_remove
             
-    print("Nicht im Schichtplan aber registriert:", not_in_schichtplan)
-    print("Nicht registriert aber im Schichtplan", not_registered)
+    print("Nicht im Schichtplan aber registriert:", sorted(not_in_schichtplan))
+    print("Nicht registriert aber im Schichtplan", sorted(not_registered))
 
 
 def _load_alias_mapper_registered_to_schichtplan():
